@@ -7,7 +7,11 @@ import {
   Min,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { AtLeastOneField } from '../../utils/at-least-one-field.validator';
 
+@AtLeastOneField(['name', 'price'], {
+  message: 'At least one field (name or price) must be provided',
+})
 export class UpdateProductRequest {
   @ApiProperty({
     description: 'The name of the product',
