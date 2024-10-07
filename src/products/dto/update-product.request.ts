@@ -17,7 +17,7 @@ export class UpdateProductRequest {
   @IsString()
   @IsOptional()
   @MaxLength(100)
-  name: string;
+  name?: string;
 
   @ApiProperty({
     description: 'The price of the product',
@@ -33,5 +33,5 @@ export class UpdateProductRequest {
   @IsOptional()
   @Min(0.01, { message: 'Price must be at least 0.01' })
   @Max(99999999.99, { message: 'Price cannot exceed 99999999.99' })
-  price: number;
+  price?: number;
 }

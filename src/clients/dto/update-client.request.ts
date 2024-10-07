@@ -10,7 +10,7 @@ export class UpdateClientRequest {
   @IsString()
   @IsOptional()
   @MaxLength(100)
-  name: string;
+  name?: string;
 
   @ApiProperty({
     description: 'The email of the client',
@@ -20,5 +20,5 @@ export class UpdateClientRequest {
   @IsString()
   @IsOptional()
   @MaxLength(100)
-  email: string;
+  email?: string;
 }

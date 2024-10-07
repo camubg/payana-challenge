@@ -26,9 +26,9 @@ export class ClientsService {
 
   async getOneActiveById(id: number): Promise<ClientEntity> {
     const clientEntity = await this.clientsRepository.getOneActiveById(id);
-    // if (!clientEntity) {
-    //   throw new NotFoundException(`Client with id: ${id} not found.`);
-    // }
+    if (!clientEntity) {
+      throw new NotFoundException(`Client with id: ${id} not found.`);
+    }
     return plainToInstance(ClientEntity, clientEntity);
   }
 
@@ -55,7 +55,7 @@ export class ClientsService {
 
     if (existingClient) {
       throw new ConflictException(
-        'A client (active or delete) with this email already exists. Please choose another email.',
+        'A client (active or deleted) with this email already exists. Please choose another email.',
       );
     }
   }

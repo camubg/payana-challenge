@@ -60,8 +60,6 @@ describe('ClientsService', () => {
     });
 
     it('should throw NotFoundException if client not found', async () => {
-      mockClientsRepository.getOneActiveById.mockResolvedValue(null);
-
       try {
         service.getOneActiveById(1);
       } catch (e) {

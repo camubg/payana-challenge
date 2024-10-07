@@ -69,8 +69,6 @@ describe('ProductsService', () => {
     });
 
     it('should throw NotFoundException if product not found', async () => {
-      mockProductsRepository.getOneActiveById.mockResolvedValue(null);
-
       try {
         service.getOneActiveById(1);
       } catch (e) {

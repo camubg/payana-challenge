@@ -1,7 +1,6 @@
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { InvoiceItemRequest } from './dto/invoice-item.request';
 import { InvoiceItemEntity } from './entities/invoice-item.entity';
 import { InvoiceEntity } from './entities/invoice.entity';
 import { ProductEntity } from '../products/entities/product.entity';

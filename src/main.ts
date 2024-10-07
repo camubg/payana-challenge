@@ -13,7 +13,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('API Documentation')
-    .setDescription('This is the API documentation for my ModakChallenge app')
+    .setDescription('This is the API documentation for my PayanaChallenge app')
     .setVersion('1.0')
     .build();
 
