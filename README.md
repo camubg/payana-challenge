@@ -17,8 +17,8 @@ PostgreSQL. El proyecto debe ser capaz de:
 
 ## Project setup
 
-```bash
-$ npm install
+```
+Put .env in the root project
 ```
 
 ```bash
