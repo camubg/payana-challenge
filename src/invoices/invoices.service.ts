@@ -19,6 +19,7 @@ import { ClientEntity } from '../clients/entities/client.entity';
 import { InvoiceResponse } from './dto/invoice.response';
 import { InvoiceItemEntity } from './entities/invoice-item.entity';
 import { InvoiceItemResponse } from './dto/invoice-item.response';
+import { InvoiceFiltersDto } from './dto/invoice-filters.dto';
 
 export const MAX_TOTAL = 99999999.99;
 @Injectable()
@@ -151,5 +152,10 @@ export class InvoicesService {
       throw new NotFoundException(`Invoice with id: ${id} not found.`);
     }
     return this.getResponse(invoice);
+  }
+
+  async getAllInvoices(filters: InvoiceFiltersDto): Promise<InvoiceResponse[]> {
+    const invoices = await this.invoicesRepository.getAll(filters);
+    return invoices.map((invoice) => this.getResponse(invoice));
   }
 }

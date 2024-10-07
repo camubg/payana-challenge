@@ -148,6 +148,13 @@ curl --request GET \
   --header 'x-api-key: {api-key}'
 ```
 
+- [GET] Get all invoices, date filters optional
+```
+curl --request GET \
+--url 'http://localhost:3000/v1/invoices?fromDate=2024-10-07&toDate=2024-10-07' \
+--header 'x-api-key: {api-key}'
+```
+
 - [POST] Create an invoice
 ```
 curl --request POST \
@@ -183,6 +190,7 @@ It will receive the following parameters: clientId, productIds, and quantities.
 - Implement pagination in getAll to handle large data loads efficiently.
 - Add caching for GET requests (depending on how frequently they are consumed), particularly for GET invoice if the dataset is extensive.
 - Introduce versioning to track product price changes.
+- Change filters in the getAll from invoices, depending on the requirements of the client.
 
 
 

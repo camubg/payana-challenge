@@ -7,6 +7,7 @@ import {
   LoggerService,
   Param,
   Post,
+  Query,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import { InvoicesService } from './invoices.service';
 import { InvoiceRequest } from './dto/invoice.request';
 import { InvoiceResponse } from './dto/invoice.response';
 import { ApiKeyGuard } from '../auth/api-key.guard';
+import { InvoiceFiltersDto } from './dto/invoice-filters.dto';
 
 @ApiTags('Invoices')
 @Controller('v1/invoices')
@@ -51,5 +53,17 @@ export class InvoicesController {
       InvoicesController.name,
     );
     return this.invoicesService.getInvoiceById(id);
+  }
+
+  @ApiOperation({
+    summary: 'Get all invoices',
+  })
+  @UseGuards(ApiKeyGuard)
+  @Get()
+  async getAllInvoices(
+    @Query(new ValidationPipe({ transform: true })) filters: InvoiceFiltersDto,
+  ): Promise<InvoiceResponse[]> {
+    this.logger.debug(`[getAllInvoices] - called`, InvoicesController.name);
+    return this.invoicesService.getAllInvoices(filters);
   }
 }

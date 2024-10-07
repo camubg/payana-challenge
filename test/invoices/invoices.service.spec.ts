@@ -20,6 +20,7 @@ import { InvoicesRepository } from '../../src/invoices/invoices.repository';
 import { InvoiceItemsRepository } from '../../src/invoices/invoice-items.repository';
 import { InvoiceItemEntity } from '../../src/invoices/entities/invoice-item.entity';
 import { InvoiceItemResponse } from '../../src/invoices/dto/invoice-item.response';
+import { InvoiceFiltersDto } from '../../src/invoices/dto/invoice-filters.dto';
 
 describe('InvoicesService', () => {
   let service;
@@ -98,6 +99,7 @@ describe('InvoicesService', () => {
   const mockInvoiceRepository = {
     getManager: jest.fn(),
     getById: jest.fn(),
+    getAll: jest.fn(),
   };
 
   const mockClientsService = {
@@ -263,6 +265,19 @@ describe('InvoicesService', () => {
       } catch (e) {
         expect(e).toBeInstanceOf(NotFoundException);
       }
+    });
+  });
+
+  describe('getAll', () => {
+    it('should return all the invoices', async () => {
+      invoicesRepository.getAll = jest
+        .fn()
+        .mockResolvedValue([mockInvoiceEntity]);
+
+      const result = await service.getAllInvoices(new InvoiceFiltersDto());
+      expect(result.length).toBe(1);
+      expect(result[0].invoiceId).toBe(1);
+      expect(result[0].total).toBe(200);
     });
   });
 });
