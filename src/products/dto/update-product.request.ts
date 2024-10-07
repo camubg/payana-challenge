@@ -9,13 +9,23 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateProductRequest {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The name of the product',
+    example: 'coca-cola',
+    required: false,
+  })
   @IsString()
   @IsOptional()
   @MaxLength(100)
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The price of the product',
+    example: '10',
+    minimum: 0.01,
+    maximum: 99999999.99,
+    required: false,
+  })
   @IsNumber(
     { maxDecimalPlaces: 2 },
     { message: 'Price must have at most 2 decimal places' },

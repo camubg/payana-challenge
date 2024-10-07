@@ -36,6 +36,7 @@ export class ClientsService {
     }
     clientEntity.isDeleted = true;
     await this.clientsRepository.save(clientEntity);
+    this.logger.debug(`Client with id: ${id} was deleted`);
   }
 
   async create(createClientRequest: ClientRequest): Promise<number> {

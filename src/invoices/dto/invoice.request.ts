@@ -12,12 +12,17 @@ import { UniqueProductIdsValidator } from '../validators/unique-products-ids.val
 import { ApiProperty } from '@nestjs/swagger';
 
 export class InvoiceRequest {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'The id of the client',
+    example: '1',
+  })
   @IsNumber()
   @IsNotEmpty()
   clientId: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'List of items included in the invoice',
+  })
   @IsNotEmpty()
   @IsArray()
   @ArrayNotEmpty()

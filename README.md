@@ -18,13 +18,13 @@ PostgreSQL. El proyecto debe ser capaz de:
 ## Project setup
 
 ```bash
-$ npm install
+$ docker-compose build
 ```
 
 ## Compile and run the project
 
 ```bash
-$ npm run start
+$ docker-compose up
 ```
 
 ## Run tests

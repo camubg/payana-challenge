@@ -26,7 +26,7 @@ export class ProductsController {
   ) {}
 
   @ApiOperation({
-    summary: 'Get all actives products',
+    summary: 'Get all active products',
   })
   @Get()
   getAllActives(): Promise<ProductResponse[]> {
@@ -35,7 +35,7 @@ export class ProductsController {
   }
 
   @ApiOperation({
-    summary: 'Get one product that is active by id',
+    summary: 'Get one active product by id',
   })
   @Get(':id')
   getOneActiveById(@Param('id') id: number): Promise<ProductResponse> {

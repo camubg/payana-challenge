@@ -37,6 +37,7 @@ export class ProductsService {
     }
     product.isDeleted = true;
     await this.productsRepository.save(product);
+    this.logger.debug(`Product with id: ${id} was deleted`);
   }
 
   async create(createProductRequest: ProductRequest): Promise<number> {
