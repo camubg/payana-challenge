@@ -9,6 +9,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -16,6 +17,7 @@ import { ClientsService } from './clients.service';
 import { ClientResponse } from './dto/client.response';
 import { UpdateClientRequest } from './dto/update-client.request';
 import { ClientRequest } from './dto/client.request';
+import { ApiKeyGuard } from '../auth/api-key.guard';
 
 @ApiTags('Clients')
 @Controller('v1/clients')
@@ -28,6 +30,7 @@ export class ClientsController {
   @ApiOperation({
     summary: 'Get all active clients',
   })
+  @UseGuards(ApiKeyGuard)
   @Get()
   getAllActives(): Promise<ClientResponse[]> {
     this.logger.debug(`[getAllActives] - called}`, ClientsController.name);
@@ -37,6 +40,7 @@ export class ClientsController {
   @ApiOperation({
     summary: 'Get one active client by id',
   })
+  @UseGuards(ApiKeyGuard)
   @Get(':id')
   getOneActiveById(@Param('id') id: number): Promise<ClientResponse> {
     this.logger.debug(
@@ -49,6 +53,7 @@ export class ClientsController {
   @ApiOperation({
     summary: 'Delete one client by id',
   })
+  @UseGuards(ApiKeyGuard)
   @Delete(':id')
   async deleteById(@Param('id') id: number): Promise<{ id: number }> {
     this.logger.debug(
@@ -62,6 +67,7 @@ export class ClientsController {
   @ApiOperation({
     summary: 'Create one client',
   })
+  @UseGuards(ApiKeyGuard)
   @Post()
   async create(
     @Body(new ValidationPipe({ transform: true }))
@@ -78,6 +84,7 @@ export class ClientsController {
   @ApiOperation({
     summary: 'Update one client by id',
   })
+  @UseGuards(ApiKeyGuard)
   @Put(':id')
   async update(
     @Param('id') id: number,

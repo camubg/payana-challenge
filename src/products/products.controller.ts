@@ -9,6 +9,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -16,6 +17,7 @@ import { ProductsService } from './products.service';
 import { ProductResponse } from './dto/product.response';
 import { ProductRequest } from './dto/product.request';
 import { UpdateProductRequest } from './dto/update-product.request';
+import { ApiKeyGuard } from '../auth/api-key.guard';
 
 @ApiTags('Products')
 @Controller('v1/products')
@@ -28,6 +30,7 @@ export class ProductsController {
   @ApiOperation({
     summary: 'Get all active products',
   })
+  @UseGuards(ApiKeyGuard)
   @Get()
   getAllActives(): Promise<ProductResponse[]> {
     this.logger.debug(`[getAllActives] - called}`, ProductsController.name);
@@ -37,6 +40,7 @@ export class ProductsController {
   @ApiOperation({
     summary: 'Get one active product by id',
   })
+  @UseGuards(ApiKeyGuard)
   @Get(':id')
   getOneActiveById(@Param('id') id: number): Promise<ProductResponse> {
     this.logger.debug(
@@ -49,6 +53,7 @@ export class ProductsController {
   @ApiOperation({
     summary: 'Delete one product by id',
   })
+  @UseGuards(ApiKeyGuard)
   @Delete(':id')
   async deleteById(@Param('id') id: number): Promise<{ id: number }> {
     this.logger.debug(
@@ -62,6 +67,7 @@ export class ProductsController {
   @ApiOperation({
     summary: 'Create one product',
   })
+  @UseGuards(ApiKeyGuard)
   @Post()
   async create(
     @Body(new ValidationPipe({ transform: true }))
@@ -78,6 +84,7 @@ export class ProductsController {
   @ApiOperation({
     summary: 'Update one product by id',
   })
+  @UseGuards(ApiKeyGuard)
   @Put(':id')
   async update(
     @Param('id') id: number,
