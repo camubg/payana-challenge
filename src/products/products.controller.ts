@@ -14,7 +14,7 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ProductsService } from './products.service';
 import { ProductDto } from './dto/product.dto';
-import { CreateProductRequest } from './dto/create-product.request';
+import { ProductRequest } from './dto/product.request';
 import { UpdateProductRequest } from './dto/update-product.request';
 
 @ApiTags('Products')
@@ -65,7 +65,7 @@ export class ProductsController {
   @Post()
   async create(
     @Body(new ValidationPipe({ transform: true }))
-    createProductRequest: CreateProductRequest,
+    createProductRequest: ProductRequest,
   ): Promise<{ id: number }> {
     this.logger.debug(
       `[create] - called with body:${JSON.stringify(createProductRequest)}`,

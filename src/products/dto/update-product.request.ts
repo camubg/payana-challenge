@@ -1,8 +1,16 @@
-import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+} from 'class-validator';
 
 export class UpdateProductRequest {
   @IsString()
   @IsOptional()
+  @MaxLength(100)
   name: string;
 
   @IsNumber(

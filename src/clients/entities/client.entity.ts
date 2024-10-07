@@ -1,15 +1,15 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class ProductEntity {
+@Entity('clients')
+export class ClientEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true, type: 'varchar', length: 100 })
+  @Column({ type: 'varchar', length: 100 })
   name: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
-  price: number;
+  @Column({ unique: true, type: 'varchar', length: 100 })
+  email: string;
 
   @Column({ type: 'boolean', default: false })
   isDeleted: boolean;

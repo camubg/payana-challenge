@@ -1,8 +1,8 @@
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { ProductEntity } from './dto/product.entity';
+import { ProductEntity } from './entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateProductRequest } from './dto/create-product.request';
+import { ProductRequest } from './dto/product.request';
 
 @Injectable()
 export class ProductsRepository {
@@ -32,13 +32,22 @@ export class ProductsRepository {
     return this.repository.save(product);
   }
 
-  create(createProductRequest: CreateProductRequest): ProductEntity {
+  create(createProductRequest: ProductRequest): ProductEntity {
     return this.repository.create(createProductRequest);
   }
 
   async findOneByName(name: string): Promise<ProductEntity> {
     return this.repository.findOne({
       where: { name },
+    });
+  }
+
+  getAllByIds(ids: number[]) {
+    return this.repository.find({
+      where: {
+        id: In(ids),
+        isDeleted: false,
+      },
     });
   }
 }

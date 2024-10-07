@@ -1,5 +1,5 @@
 import {
-  BadRequestException,
+  ConflictException,
   Inject,
   Injectable,
   Logger,
@@ -9,8 +9,9 @@ import {
 import { ProductsRepository } from './products.repository';
 import { ProductDto } from './dto/product.dto';
 import { plainToInstance } from 'class-transformer';
-import { CreateProductRequest } from './dto/create-product.request';
+import { ProductRequest } from './dto/product.request';
 import { UpdateProductRequest } from './dto/update-product.request';
+import { ProductEntity } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
@@ -38,7 +39,7 @@ export class ProductsService {
     await this.productsRepository.save(product);
   }
 
-  async create(createProductRequest: CreateProductRequest): Promise<number> {
+  async create(createProductRequest: ProductRequest): Promise<number> {
     await this.validateUniqueName(createProductRequest.name);
 
     const newProduct = this.productsRepository.create(createProductRequest);
@@ -50,7 +51,7 @@ export class ProductsService {
     const existingProduct = await this.productsRepository.findOneByName(name);
 
     if (existingProduct) {
-      throw new BadRequestException(
+      throw new ConflictException(
         'A product (active or delete) with this name already exists. Please choose another name.',
       );
     }
@@ -70,5 +71,9 @@ export class ProductsService {
 
     Object.assign(product, updateProductRequest);
     await this.productsRepository.save(product);
+  }
+
+  async getAllByIds(ids: number[]): Promise<ProductEntity[]> {
+    return this.productsRepository.getAllByIds(ids);
   }
 }
