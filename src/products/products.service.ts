@@ -7,7 +7,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
-import { ProductDto } from './dto/product.dto';
+import { ProductResponse } from './dto/product.response';
 import { plainToInstance } from 'class-transformer';
 import { ProductRequest } from './dto/product.request';
 import { UpdateProductRequest } from './dto/update-product.request';
@@ -20,14 +20,14 @@ export class ProductsService {
     @Inject(Logger) private readonly logger: LoggerService,
   ) {}
 
-  async getAllActives(): Promise<ProductDto[]> {
+  async getAllActives(): Promise<ProductResponse[]> {
     const productEntities = await this.productsRepository.getAllActives();
-    return plainToInstance(ProductDto, productEntities);
+    return plainToInstance(ProductResponse, productEntities);
   }
 
-  async getOneActiveById(id: number): Promise<ProductDto> {
+  async getOneActiveById(id: number): Promise<ProductResponse> {
     const productEntity = await this.productsRepository.getOneActiveById(id);
-    return plainToInstance(ProductDto, productEntity);
+    return plainToInstance(ProductResponse, productEntity);
   }
 
   async deleteById(id: number): Promise<void> {

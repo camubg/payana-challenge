@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ProductsService } from './products.service';
-import { ProductDto } from './dto/product.dto';
+import { ProductResponse } from './dto/product.response';
 import { ProductRequest } from './dto/product.request';
 import { UpdateProductRequest } from './dto/update-product.request';
 
@@ -29,7 +29,7 @@ export class ProductsController {
     summary: 'Get all actives products',
   })
   @Get()
-  getAllActives(): Promise<ProductDto[]> {
+  getAllActives(): Promise<ProductResponse[]> {
     this.logger.debug(`[getAllActives] - called}`, ProductsController.name);
     return this.productsService.getAllActives();
   }
@@ -38,7 +38,7 @@ export class ProductsController {
     summary: 'Get one product that is active by id',
   })
   @Get(':id')
-  getOneActiveById(@Param('id') id: number): Promise<ProductDto> {
+  getOneActiveById(@Param('id') id: number): Promise<ProductResponse> {
     this.logger.debug(
       `[getOneActiveById] - called with id:${id}`,
       ProductsController.name,

@@ -8,13 +8,16 @@ import {
 } from 'class-validator';
 import { InvoiceItemRequest } from './invoice-item.request';
 import { Type } from 'class-transformer';
-import { UniqueProductIdsValidator } from './unique-products-ids.validator';
+import { UniqueProductIdsValidator } from '../validators/unique-products-ids.validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class InvoiceRequest {
+  @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
   clientId: number;
 
+  @ApiProperty()
   @IsNotEmpty()
   @IsArray()
   @ArrayNotEmpty()

@@ -13,4 +13,13 @@ export class InvoicesRepository {
   getManager(): EntityManager {
     return this.repository.manager;
   }
+
+  async getById(id: number): Promise<InvoiceEntity> {
+    return this.repository.findOne({
+      where: {
+        id,
+      },
+      relations: ['client', 'items', 'items.product'],
+    });
+  }
 }

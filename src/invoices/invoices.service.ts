@@ -123,7 +123,7 @@ export class InvoicesService {
 
   private getResponse(
     savedInvoice: InvoiceEntity,
-    savedItems: InvoiceItemEntity[],
+    savedItems?: InvoiceItemEntity[],
   ): InvoiceResponse {
     const response = new InvoiceResponse();
     response.clientId = savedInvoice.client.id;
@@ -132,7 +132,8 @@ export class InvoicesService {
     response.total = savedInvoice.total;
     response.createdAt = savedInvoice.createdAt;
     response.invoiceId = savedInvoice.id;
-    response.items = savedItems.map((entity) => {
+    const itemsToTransform = savedItems ?? savedInvoice.items;
+    response.items = itemsToTransform.map((entity) => {
       const item = new InvoiceItemResponse();
       item.price = entity.price;
       item.productId = entity.product.id;
@@ -141,5 +142,10 @@ export class InvoicesService {
       return item;
     });
     return response;
+  }
+
+  async getInvoiceById(id: number): Promise<InvoiceResponse> {
+    const invoice = await this.invoicesRepository.getById(id);
+    return this.getResponse(invoice);
   }
 }

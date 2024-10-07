@@ -4,8 +4,10 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 import { ClientEntity } from '../../clients/entities/client.entity';
+import { InvoiceItemEntity } from './invoice-item.entity';
 
 @Entity('invoices')
 export class InvoiceEntity {
@@ -21,4 +23,9 @@ export class InvoiceEntity {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  @OneToMany(() => InvoiceItemEntity, (invoiceItem) => invoiceItem.invoice, {
+    cascade: true,
+  })
+  items: InvoiceItemEntity[];
 }

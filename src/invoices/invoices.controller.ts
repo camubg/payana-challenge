@@ -1,16 +1,17 @@
 import {
   Body,
   Controller,
+  Get,
   Inject,
   Logger,
   LoggerService,
+  Param,
   Post,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { InvoicesService } from './invoices.service';
 import { InvoiceRequest } from './dto/invoice.request';
-import { InvoiceEntity } from './entities/invoice.entity';
 import { InvoiceResponse } from './dto/invoice.response';
 
 @ApiTags('Invoices')
@@ -34,5 +35,17 @@ export class InvoicesController {
       InvoicesController.name,
     );
     return this.invoicesService.create(createInvoiceRequest);
+  }
+
+  @ApiOperation({
+    summary: 'Get one invoice by id',
+  })
+  @Get(':id')
+  async getInvoice(@Param('id') id: number): Promise<InvoiceResponse> {
+    this.logger.debug(
+      `[getInvoice] - called with id:${id}`,
+      InvoicesController.name,
+    );
+    return this.invoicesService.getInvoiceById(id);
   }
 }
