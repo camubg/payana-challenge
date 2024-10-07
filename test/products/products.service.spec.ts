@@ -74,7 +74,7 @@ describe('ProductsService', () => {
       try {
         service.getOneActiveById(1);
       } catch (e) {
-        expect(e.errorCode).toBe(404);
+        expect(e).toBeInstanceOf(NotFoundException);
       }
     });
   });

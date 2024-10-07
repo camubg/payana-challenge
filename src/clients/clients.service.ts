@@ -26,6 +26,9 @@ export class ClientsService {
 
   async getOneActiveById(id: number): Promise<ClientEntity> {
     const clientEntity = await this.clientsRepository.getOneActiveById(id);
+    // if (!clientEntity) {
+    //   throw new NotFoundException(`Client with id: ${id} not found.`);
+    // }
     return plainToInstance(ClientEntity, clientEntity);
   }
 

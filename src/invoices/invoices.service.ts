@@ -72,13 +72,14 @@ export class InvoicesService {
 
         try {
           // Calling DIAN SERVICE
+          this.logger.log('Calling DIAN SERVICE...');
         } catch (e) {
           this.logger.error(
             `Failed to process the invoice with DIAN`,
             e.message,
           );
           throw new InternalServerErrorException(
-            'Failed to process the invoice with DIAN',
+            'Failed to process the invoice',
           );
         }
 
@@ -146,6 +147,9 @@ export class InvoicesService {
 
   async getInvoiceById(id: number): Promise<InvoiceResponse> {
     const invoice = await this.invoicesRepository.getById(id);
+    if (!invoice) {
+      throw new NotFoundException(`Invoice with id: ${id} not found.`);
+    }
     return this.getResponse(invoice);
   }
 }

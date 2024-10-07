@@ -27,6 +27,9 @@ export class ProductsService {
 
   async getOneActiveById(id: number): Promise<ProductResponse> {
     const productEntity = await this.productsRepository.getOneActiveById(id);
+    // if (!productEntity) {
+    //   throw new NotFoundException(`Product with id: ${id} not found.`);
+    // }
     return plainToInstance(ProductResponse, productEntity);
   }
 
